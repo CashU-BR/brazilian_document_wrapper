@@ -10,5 +10,8 @@ group :development do
   gem 'sqlite3'
 end
 
+gem 'simplecov', require: false, group: :test
+
 # To use a debugger
-# gem 'byebug', group: [:development, :test]
+gem 'pry', group: [:development, :test]
+gem 'rubocop', '~> 0.79', require: false, group: [:development, :test]

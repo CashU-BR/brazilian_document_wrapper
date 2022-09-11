@@ -2,7 +2,7 @@
 Short description and motivation.
 
 ## Usage
-How to use my plugin.
+This plugin is a wrapper that injects the [brazilian_documents](https://github.com/fidelisrafael/brazilian_documents) gem behavior into string and active-record classes
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -19,6 +19,12 @@ $ bundle
 Or install it yourself as:
 ```bash
 $ gem install brazilian_document_wrapper
+```
+
+## Test gem
+
+```bash
+$ bin/test
 ```
 
 ## Contributing

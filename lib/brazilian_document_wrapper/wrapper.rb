@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 class InvalidDocumentError < StandardError; end
 
 module BrazilianDocumentWrapper
   class Wrapper < String
-    def formatted
+    def standard
       pretty
     end
 
     def stripped
-      raise InvalidDocumentError if invalid?
+      raise InvalidDocumentError if invalid_document?
 
       return_document_type do
         BRDocuments::CNPJ.strip(self)
@@ -17,7 +15,7 @@ module BrazilianDocumentWrapper
     end
 
     def pretty
-      raise InvalidDocumentError if invalid?
+      raise InvalidDocumentError if invalid_document?
 
       return BRDocuments::CPF.pretty(self) if cpf?
 
@@ -40,7 +38,7 @@ module BrazilianDocumentWrapper
       pretty.split('/').first
     end
 
-    def invalid?
+    def invalid_document?
       !cnpj? && !cpf?
     end
 
@@ -51,12 +49,6 @@ module BrazilianDocumentWrapper
     def to_param
       return_document_type do
         BRDocuments::CNPJ.strip(self)
-      end
-    end
-
-    def db_format
-      return_document_type do
-        pretty
       end
     end
 
@@ -73,7 +65,7 @@ module BrazilianDocumentWrapper
     end
 
     def return_document_type
-      Utils::DocumentWrapper.new(yield)
+      BrazilianDocumentWrapper::Wrapper.new(yield)
     end
   end
 end

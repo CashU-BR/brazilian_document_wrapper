@@ -1,4 +1,4 @@
-module BrazilianDocuments
+module BrazilianDocumentWrapper
   class Railtie < ::Rails::Railtie
   end
 end

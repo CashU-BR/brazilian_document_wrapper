@@ -1,0 +1,19 @@
+---
+AllCops:
+  TargetRubyVersion: 2.7.5
+  Exclude:
+    - test/**/*
+  NewCops: disable
+
+Layout/LineLength:
+  Exclude:
+  - test/**/*
+  Max: 100
+  IgnoredPatterns: ['\A#', ' # ']
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+

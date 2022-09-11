@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvalidDocumentError < StandardError; end
 
 module BrazilianDocumentWrapper

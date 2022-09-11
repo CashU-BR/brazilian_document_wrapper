@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -13,5 +15,5 @@ end
 gem 'simplecov', require: false, group: :test
 
 # To use a debugger
-gem 'pry', group: [:development, :test]
-gem 'rubocop', '~> 0.79', require: false, group: [:development, :test]
+gem 'pry', group: %i[development test]
+gem 'rubocop', '~> 0.79', require: false, group: %i[development test]

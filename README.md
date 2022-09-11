@@ -21,6 +21,31 @@ Or install it yourself as:
 $ gem install brazilian_document_wrapper
 ```
 
+## Usage
+
+Define attribute to acts_as_brazilian_document_wrapper:
+```ruby
+class Customer < ApplicationRecord
+  acts_as_brazilian_document_wrapper :cpf
+end
+```
+
+And you can use as follows:
+```ruby
+customer = Customer.new(cpf: '52.256.591/0001-66')
+
+customer.cpf.stripped # 52256591000166
+customer.cpf.pretty_prefix # 52.256.591
+customer.cpf.standard # 52.256.591/0001-66
+```
+
+You can instantiate a document from a string:
+```ruby
+document = '52.256.591/0001-66'.to_brazilian_document
+
+document.stripped # 52256591000166
+```
+
 ## Test gem
 
 ```bash

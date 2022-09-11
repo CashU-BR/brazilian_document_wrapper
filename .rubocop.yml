@@ -2,12 +2,12 @@
 AllCops:
   TargetRubyVersion: 2.7.5
   Exclude:
-    - test/**/*
+    - test/dummy/**/*
   NewCops: disable
 
 Layout/LineLength:
   Exclude:
-  - test/**/*
+  - test/dummy/**/*
   Max: 100
   IgnoredPatterns: ['\A#', ' # ']
 

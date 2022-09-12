@@ -26,7 +26,13 @@ $ gem install brazilian_document_wrapper
 Define attribute to acts_as_brazilian_document_wrapper:
 ```ruby
 class Customer < ApplicationRecord
-  acts_as_brazilian_document_wrapper :cpf
+  acts_as_brazilian_document_wrapper brazilian_document_field: :cpf
+end
+```
+or
+```ruby
+class Customer < ApplicationRecord
+  acts_as_brazilian_document_wrapper # will consider document attribute as brazilian_document_field
 end
 ```
 

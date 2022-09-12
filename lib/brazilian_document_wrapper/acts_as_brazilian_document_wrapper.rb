@@ -7,7 +7,7 @@ module BrazilianDocumentWrapper
     extend ActiveSupport::Concern
 
     class_methods do
-      def acts_as_brazilian_document_wrapper(options = {})
+      def acts_as_brazilian_document(options = {})
         value = (options[:brazilian_document_field] || :document)
         cattr_accessor :brazilian_document_field, default: value.to_s
 

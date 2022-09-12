@@ -48,6 +48,17 @@ module BrazilianDocumentWrapper
       !cnpj?
     end
 
+    def headquarter
+      raise InvalidDocumentError if invalid_cnpj?
+
+      headquarter = "#{pretty_prefix}/0001"
+      verify_digits = BRDocuments::CNPJ.calculate_verify_digits(headquarter).join('')
+
+      return_document_type do
+        "#{headquarter}-#{verify_digits}"
+      end
+    end
+
     def to_param
       return_document_type do
         BRDocuments::CNPJ.strip(self)

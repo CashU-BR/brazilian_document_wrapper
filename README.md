@@ -11,6 +11,15 @@ Add this line to your application's Gemfile:
 gem 'brazilian_document_wrapper', git: 'https://github.com/CashU-BR/brazilian_document_wrapper'
 ```
 
+Include wrapper on application record class:
+```ruby
+class ApplicationRecord < ActiveRecord::Base
+  include BrazilianDocumentWrapper::ActsAsBrazilianDocumentWrapper
+
+  self.abstract_class = true
+end
+```
+
 And then execute:
 ```bash
 $ bundle

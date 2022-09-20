@@ -2,7 +2,7 @@
 Short description and motivation.
 
 ## Usage
-This plugin is a wrapper that injects the [brazilian_documents](https://github.com/fidelisrafael/brazilian_documents) gem behavior into string and active-record classes
+This plugin is a wrapper that injects helpers for brazilian document strings into string and active-record classes
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -26,13 +26,13 @@ $ gem install brazilian_document_wrapper
 Define attribute to acts_as_brazilian_document_wrapper:
 ```ruby
 class Customer < ApplicationRecord
-  acts_as_brazilian_document_wrapper brazilian_document_field: :cpf
+  acts_as_brazilian_document brazilian_document_field: :cpf
 end
 ```
 or
 ```ruby
 class Customer < ApplicationRecord
-  acts_as_brazilian_document_wrapper # will consider document attribute as brazilian_document_field
+  acts_as_brazilian_document # will consider document attribute as brazilian_document_field
 end
 ```
 

@@ -8,7 +8,7 @@ This plugin is a wrapper that injects the [brazilian_documents](https://github.c
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'brazilian_document_wrapper'
+gem 'brazilian_document_wrapper', git: 'https://github.com/CashU-BR/brazilian_document_wrapper'
 ```
 
 And then execute:

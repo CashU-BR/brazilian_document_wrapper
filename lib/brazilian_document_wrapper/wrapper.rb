@@ -65,10 +65,6 @@ module BrazilianDocumentWrapper
       end
     end
 
-    private
-
-    attr_reader :self
-
     def cnpj?
       BRDocuments::CNPJ.valid?(self)
     end
@@ -76,6 +72,8 @@ module BrazilianDocumentWrapper
     def cpf?
       BRDocuments::CPF.valid?(self)
     end
+
+    private
 
     def return_document_type
       BrazilianDocumentWrapper::Wrapper.new(yield)

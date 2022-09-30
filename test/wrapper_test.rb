@@ -29,10 +29,12 @@ class WrapperTest < ActiveSupport::TestCase
 
   test 'doc_type to return CNPJ when document type is a CNPJ' do
     assert_equal 'CNPJ', '77.075.203/0001-71'.to_brazilian_document.doc_type
+    assert_equal true, '77.075.203/0001-71'.to_brazilian_document.cnpj?
   end
 
   test 'doc_type to return CPF when document type is a CPF' do
     assert_equal 'CPF', '384.227.160-38'.to_brazilian_document.doc_type
+    assert_equal true, '384.227.160-38'.to_brazilian_document.cpf?
   end
 
   test 'to_param to return a document for in the parameter form' do

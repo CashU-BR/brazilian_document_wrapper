@@ -14,5 +14,15 @@ module BrazilianDocumentWrapper
         attribute value, BrazilianDocumentType.new
       end
     end
+
+    included do
+      def legal_person?
+        send(brazilian_document_field).cnpj?
+      end
+
+      def natural_person?
+        send(brazilian_document_field).cpf?
+      end
+    end
   end
 end

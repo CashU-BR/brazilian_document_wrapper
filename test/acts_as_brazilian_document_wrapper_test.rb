@@ -11,11 +11,25 @@ class ActsAsBrazilianDocumentWrapperTest < ActiveSupport::TestCase
     assert_equal 'cpf', Customer.brazilian_document_field
   end
 
-  def test_a_customers_brazilian_document_field_behave_like_brazilian_document
+  def test_a_business_protest_brazilian_document_field_behave_like_brazilian_document
     protest = BusinessProtest.new(document: '52.256.591/0001-66')
 
     BrazilianDocumentWrapper::Wrapper.instance_methods(false).each do |method|
       assert_equal(protest.document.respond_to?(method), true)
     end
+  end
+
+  def test_a_customers_should_behave_like_natural_person
+    customer = Customer.new(cpf: '618.543.570-50')
+
+    assert_equal true, customer.natural_person?
+    assert_equal false, customer.legal_person?
+  end
+
+  def test_a_business_protest_should_behave_like_legal_person
+    protest = BusinessProtest.new(document: '52.256.591/0001-66')
+
+    assert_equal false, protest.natural_person?
+    assert_equal true, protest.legal_person?
   end
 end

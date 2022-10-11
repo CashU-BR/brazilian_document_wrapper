@@ -7,6 +7,13 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal '77.075.203/0001-71', '77075203000171'.to_brazilian_document.standard
   end
 
+  test 'to return a brazilian document type when standard format is called' do
+    assert_equal BrazilianDocumentWrapper::Wrapper,
+                 '77075203000171'.to_brazilian_document.standard.class
+    assert_equal BrazilianDocumentWrapper::Wrapper,
+                 '42521602000'.to_brazilian_document.standard.class
+  end
+
   test 'pretty to return the document in the visible format' do
     assert_equal '77.075.203/0001-71', '77075203000171'.to_brazilian_document.pretty
   end

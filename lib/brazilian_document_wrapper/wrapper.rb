@@ -19,10 +19,12 @@ module BrazilianDocumentWrapper
     def pretty
       raise InvalidDocumentError if invalid_document?
 
-      return BRDocuments::CPF.pretty(self) if cpf?
-
       return_document_type do
-        BRDocuments::CNPJ.pretty(self)
+        if cpf?
+          BRDocuments::CPF.pretty(self)
+        else
+          BRDocuments::CNPJ.pretty(self)
+        end
       end
     end
 

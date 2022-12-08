@@ -32,4 +32,12 @@ class ActsAsBrazilianDocumentWrapperTest < ActiveSupport::TestCase
     assert_equal false, protest.natural_person?
     assert_equal true, protest.legal_person?
   end
+
+  def test_a_business_protest_should_save_document_in_format_standard
+    protest = BusinessProtest.new(document: '52256591000166')
+
+    protest.save!
+
+    assert_equal protest.document, '52.256.591/0001-66'
+  end
 end

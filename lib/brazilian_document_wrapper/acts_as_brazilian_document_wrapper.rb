@@ -16,6 +16,11 @@ module BrazilianDocumentWrapper
     end
 
     included do
+      before_save do
+        self[brazilian_document_field] = self[brazilian_document_field].to_brazilian_document
+                                                                       .standard
+      end
+
       def legal_person?
         send(brazilian_document_field).cnpj?
       end

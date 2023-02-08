@@ -7,5 +7,11 @@ require 'brazilian_document_wrapper/wrapper'
 require 'brazilian_document_wrapper/acts_as_brazilian_document_wrapper'
 
 module BrazilianDocumentWrapper
-  # Your code goes here...
+  def self.generate_cnpj(formatted = true)
+    BRDocuments::CNPJ.generate(formatted)
+  end
+
+  def self.generate_cpf(formatted = true)
+    BRDocuments::CPF.generate(formatted)
+  end
 end

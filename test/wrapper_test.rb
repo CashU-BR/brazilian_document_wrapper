@@ -34,6 +34,14 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal true, '7075203000171'.to_brazilian_document.invalid_cnpj?
   end
 
+  test 'invalid_cpf to return true when is a invalid CPF' do
+    assert_equal true, '38422716037'.to_brazilian_document.invalid_cpf?
+  end
+
+  test 'valid_document? to return true when is a valid document' do
+    assert_equal true, '38422716038'.to_brazilian_document.valid_document?
+  end
+
   test 'doc_type to return CNPJ when document type is a CNPJ' do
     assert_equal 'CNPJ', '77.075.203/0001-71'.to_brazilian_document.doc_type
     assert_equal true, '77.075.203/0001-71'.to_brazilian_document.cnpj?

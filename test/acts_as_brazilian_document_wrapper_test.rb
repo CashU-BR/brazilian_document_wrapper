@@ -32,4 +32,16 @@ class ActsAsBrazilianDocumentWrapperTest < ActiveSupport::TestCase
     assert_equal false, protest.natural_person?
     assert_equal true, protest.legal_person?
   end
+
+  def test_stripped_helper_should_behave_like_stripped_method
+    protest = BusinessProtest.new(document: '52.256.591/0001-66')
+
+    assert_equal '52256591000166', protest.stripped_document
+  end
+
+  def test_pretty_helper_should_behave_like_pretty_method
+    protest = BusinessProtest.new(document: '52256591000166')
+
+    assert_equal '52.256.591/0001-66', protest.pretty_document
+  end
 end

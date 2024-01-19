@@ -5,6 +5,8 @@ require 'brazilian_document_wrapper/railtie'
 require 'brazilian_document_wrapper/core_ext'
 require 'brazilian_document_wrapper/wrapper'
 require 'brazilian_document_wrapper/acts_as_brazilian_document_wrapper'
+# gem helper
+require 'brazilian_documents'
 
 module BrazilianDocumentWrapper
   def self.generate_cnpj(formatted = true)

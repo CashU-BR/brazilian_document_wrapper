@@ -46,8 +46,16 @@ module BrazilianDocumentWrapper
       !cnpj? && !cpf?
     end
 
+    def valid_document?
+      cnpj? || cpf?
+    end
+
     def invalid_cnpj?
       !cnpj?
+    end
+
+    def invalid_cpf?
+      !cpf?
     end
 
     def headquarter

@@ -12,6 +12,14 @@ module BrazilianDocumentWrapper
         cattr_accessor :brazilian_document_field, default: value.to_s
 
         attribute value, BrazilianDocumentType.new
+
+        define_method("stripped_#{value}") do
+          send(value).stripped
+        end
+
+        define_method("pretty_#{value}") do
+          send(value).pretty
+        end
       end
     end
 

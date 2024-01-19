@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    brazilian_document_wrapper (0.1.0)
+    brazilian_document_wrapper (0.1.2)
+      brazilian_documents (>= 0.1.8)
       rails (~> 6.1, >= 6.1)
 
 GEM
@@ -172,11 +173,10 @@ PLATFORMS
 
 DEPENDENCIES
   brazilian_document_wrapper!
-  brazilian_documents (~> 0.1.4)
   pry
-  rubocop (~> 0.79)
+  rubocop (~> 0.93)
   simplecov
   sqlite3
 
 BUNDLED WITH
-   2.2.32
+   2.4.6

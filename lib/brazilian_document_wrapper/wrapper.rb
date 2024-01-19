@@ -12,7 +12,7 @@ module BrazilianDocumentWrapper
       raise InvalidDocumentError if invalid_document?
 
       return_document_type do
-        BRDocuments::CNPJ.strip(self)
+        BRDocuments::CNPJ.strip(value)
       end
     end
 
@@ -21,9 +21,9 @@ module BrazilianDocumentWrapper
 
       return_document_type do
         if cpf?
-          BRDocuments::CPF.pretty(self)
+          BRDocuments::CPF.pretty(value)
         else
-          BRDocuments::CNPJ.pretty(self)
+          BRDocuments::CNPJ.pretty(value)
         end
       end
     end
@@ -31,7 +31,7 @@ module BrazilianDocumentWrapper
     def doc_type
       return 'CPF' if cpf?
 
-      return 'CNPJ' if cnpj?
+      'CNPJ' if cnpj?
     end
 
     def stripped_prefix
@@ -63,22 +63,30 @@ module BrazilianDocumentWrapper
 
     def to_param
       return_document_type do
-        BRDocuments::CNPJ.strip(self)
+        BRDocuments::CNPJ.strip(value)
       end
     end
 
     def cnpj?
-      BRDocuments::CNPJ.valid?(self)
+      BRDocuments::CNPJ.valid?(value)
     end
 
     def cpf?
-      BRDocuments::CPF.valid?(self)
+      BRDocuments::CPF.valid?(value)
     end
 
     private
 
     def return_document_type
       BrazilianDocumentWrapper::Wrapper.new(yield)
+    end
+
+    def value
+      if length > 11
+        to_s.rjust(14, '0')
+      else
+        to_s.rjust(11, '0')
+      end
     end
   end
 end

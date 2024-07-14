@@ -16,4 +16,4 @@ gem 'simplecov', require: false, group: :test
 
 # To use a debugger
 gem 'pry', group: %i[development test]
-gem 'rubocop', '~> 0.79', require: false, group: %i[development test]
+gem 'rubocop', '~> 1.0', '>= 1.0.0', require: false, group: %i[development test]

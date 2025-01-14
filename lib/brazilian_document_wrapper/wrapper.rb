@@ -61,6 +61,10 @@ module BrazilianDocumentWrapper
       end
     end
 
+    def headquarter?
+      branch_code == '0001'
+    end
+
     def to_param
       return_document_type do
         BRDocuments::CNPJ.strip(value)
@@ -87,6 +91,10 @@ module BrazilianDocumentWrapper
       else
         to_s.rjust(11, '0')
       end
+    end
+
+    def branch_code
+      stripped[8..-3]
     end
   end
 end

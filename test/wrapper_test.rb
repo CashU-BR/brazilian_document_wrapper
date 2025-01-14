@@ -81,6 +81,18 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal '77.075.203/0001-71', document.headquarter
   end
 
+  test 'returns true for headquarter CNPJ' do
+    document = '18.933.677/0001-48'.to_brazilian_document
+
+    assert document.headquarter?
+  end
+
+  test 'returns false for branch CNPJ' do
+    document = '18.933.677/0002-29'.to_brazilian_document
+
+    refute document.headquarter?
+  end
+
   test 'to raise InvalidDocumentError when headquarter is called from a invalid CNPJ' do
     assert_raise(InvalidDocumentError) do
       '384.227.160-38'.to_brazilian_document.headquarter

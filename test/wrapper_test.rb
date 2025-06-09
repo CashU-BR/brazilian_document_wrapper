@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class WrapperTest < ActiveSupport::TestCase
-  test 'stardand to return the document when 0 is missing from the beginning of cnpj' do
+  test 'standard to return the document when 0 is missing from the beginning of cnpj' do
     assert_equal '04.985.802/0001-59', '4985802000159'.to_brazilian_document.standard
   end
 
@@ -11,7 +11,7 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal '04985802000159', '4985802000159'.to_brazilian_document.stripped
   end
 
-  test 'stardand to return the document when 0 is missing from the beginning of cpf' do
+  test 'standard to return the document when 0 is missing from the beginning of cpf' do
     assert_equal '078.810.710-01', '7881071001'.to_brazilian_document.standard
   end
 

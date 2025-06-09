@@ -38,6 +38,10 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal '77075203000171', '77.075.203/0001-71'.to_brazilian_document.stripped
   end
 
+  test 'stripped to return only numbers from cpf' do
+    assert_equal '38422716038', '384.227.160-38'.to_brazilian_document.stripped
+  end
+
   test 'stripped_prefix to return only numbers from the prefix of the document' do
     assert_equal '77075203', '77075203000171'.to_brazilian_document.stripped_prefix
   end

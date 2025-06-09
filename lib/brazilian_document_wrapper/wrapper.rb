@@ -12,7 +12,11 @@ module BrazilianDocumentWrapper
       raise InvalidDocumentError if invalid_document?
 
       return_document_type do
-        BRDocuments::CNPJ.strip(value)
+        if cpf?
+          BRDocuments::CPF.strip(value)
+        else
+          BRDocuments::CNPJ.strip(value)
+        end
       end
     end
 
@@ -67,7 +71,11 @@ module BrazilianDocumentWrapper
 
     def to_param
       return_document_type do
-        BRDocuments::CNPJ.strip(value)
+        if cpf?
+          BRDocuments::CPF.strip(value)
+        else
+          BRDocuments::CNPJ.strip(value)
+        end
       end
     end
 

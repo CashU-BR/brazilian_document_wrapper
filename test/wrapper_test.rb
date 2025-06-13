@@ -65,9 +65,10 @@ class WrapperTest < ActiveSupport::TestCase
   end
 
   test 'to raise InvalidDocumentError when string is a invalid document' do
-    assert_raise(InvalidDocumentError) do
+    error = assert_raise(InvalidDocumentError) do
       '384.227.160-8'.to_brazilian_document.stripped
     end
+    assert_equal 'Invalid document: 384.227.160-8', error.message
   end
 
   test 'to return a Wrapper class when is a document string' do
@@ -98,8 +99,9 @@ class WrapperTest < ActiveSupport::TestCase
   end
 
   test 'to raise InvalidDocumentError when headquarter is called from a invalid CNPJ' do
-    assert_raise(InvalidDocumentError) do
+    error = assert_raise(InvalidDocumentError) do
       '384.227.160-38'.to_brazilian_document.headquarter
     end
+    assert_equal 'Invalid document: 384.227.160-38', error.message
   end
 end

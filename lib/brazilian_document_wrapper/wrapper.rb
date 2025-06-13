@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
-class InvalidDocumentError < StandardError; end
+class InvalidDocumentError < StandardError
+  attr_reader :document
+
+  def initialize(document)
+    @document = document
+    super("Invalid document: #{document}")
+  end
+end
 
 module BrazilianDocumentWrapper
   class Wrapper < String
@@ -9,7 +16,7 @@ module BrazilianDocumentWrapper
     end
 
     def stripped
-      raise InvalidDocumentError if invalid_document?
+      raise InvalidDocumentError.new(self) if invalid_document?
 
       return_document_type do
         if cpf?
@@ -21,7 +28,7 @@ module BrazilianDocumentWrapper
     end
 
     def pretty
-      raise InvalidDocumentError if invalid_document?
+      raise InvalidDocumentError.new(self) if invalid_document?
 
       return_document_type do
         if cpf?
@@ -55,7 +62,7 @@ module BrazilianDocumentWrapper
     end
 
     def headquarter
-      raise InvalidDocumentError if invalid_cnpj?
+      raise InvalidDocumentError.new(self) if invalid_cnpj?
 
       headquarter = "#{pretty_prefix}/0001"
       verify_digits = BRDocuments::CNPJ.calculate_verify_digits(headquarter).join('')

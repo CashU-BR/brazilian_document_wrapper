@@ -64,12 +64,10 @@ document.stripped # 52256591000166
 ## CPF/CNPJ validation, alphanumeric CNPJ
 
 CPF and CNPJ validation, digit-verification, formatting, and generation are implemented
-in pure Ruby inside this gem — no runtime dependency beyond Rails. `cnpj?`/`pretty`/
-`stripped`/etc. support both the legacy numeric-only CNPJ and the alphanumeric CNPJ
-introduced by IN RFB 2.229/2024 (in production since 01/07/2026). A fully numeric CNPJ
-is simply a particular case of the alphanumeric format — the same validator and DV
-algorithm handle both, and letters are normalized to uppercase, never stripped as if
-they were mask punctuation:
+in pure Ruby inside this gem — no runtime dependency beyond Rails, including the
+alphanumeric CNPJ introduced by IN RFB 2.229/2024. See [`CONTEXT.md`](CONTEXT.md) for
+the CPF/CNPJ format and checksum background. Letters are normalized to uppercase, never
+stripped as if they were mask punctuation:
 
 ```ruby
 '12.ABC.345/01DE-35'.to_brazilian_document.cnpj?   # true

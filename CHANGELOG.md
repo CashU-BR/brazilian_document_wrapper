@@ -10,10 +10,10 @@
   is a particular case of the alphanumeric format, validated by the same algorithm.
 - `Wrapper#branch(code)` — recalculates verify digits for an arbitrary establishment
   code. `headquarter` is now `branch('0001')` internally.
-- `BrazilianDocumentWrapper.generate_cnpj(formatted = true, alphanumeric: false)` —
+- `BrazilianDocumentWrapper.generate_cnpj(formatted = true, alphanumeric: true)` —
   optional `alphanumeric:` flag to generate a CNPJ with letters in the root. Defaults
-  to `false` (numeric-only), so existing factories/specs in consumer apps are
-  unaffected.
+  to `true`; pass `alphanumeric: false` for a numeric-only CNPJ (e.g. existing
+  factories/specs in consumer apps that assume digits-only).
 
 ### Changed
 - **Internalized all CPF/CNPJ math.** Validation, digit-verification, stripping,
@@ -52,6 +52,9 @@ This gem cannot audit apps that consume it, but if you're migrating off
 - `pretty`/`standard`/`stripped`/`to_param`/`headquarter`/`branch` raise on invalid
   input — guard call sites that format untrusted/external data with
   `invalid_document?`/`invalid_cnpj?` first.
+- `BrazilianDocumentWrapper.generate_cnpj` now returns an **alphanumeric** CNPJ by
+  default. Any factory/fixture that assumes a digits-only result (e.g. `.to_i`,
+  numeric-column seeds, `\d{14}` assertions) needs `generate_cnpj(alphanumeric: false)`.
 
 ## 0.1.x
 See git history.

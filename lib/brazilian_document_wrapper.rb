@@ -8,10 +8,9 @@ require 'brazilian_document_wrapper/wrapper'
 require 'brazilian_document_wrapper/acts_as_brazilian_document_wrapper'
 
 module BrazilianDocumentWrapper
-  # `alphanumeric: true` generates a CNPJ root with letters (IN RFB
-  # 2.229/2024). Defaults to numeric-only to keep existing factories/specs
-  # in consumer apps unchanged.
-  def self.generate_cnpj(formatted = true, alphanumeric: false)
+  # Defaults to alphanumeric (IN RFB 2.229/2024): the root may contain
+  # letters. Pass `alphanumeric: false` for a numeric-only CNPJ.
+  def self.generate_cnpj(formatted = true, alphanumeric: true)
     document = Wrapper.new(DocumentMath.generate_cnpj(alphanumeric: alphanumeric))
     formatted ? document.pretty : document.stripped
   end

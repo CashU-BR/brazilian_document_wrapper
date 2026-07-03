@@ -42,18 +42,18 @@ class DocumentMathTest < ActiveSupport::TestCase
     end
   end
 
-  test 'generate_cnpj defaults to a numeric-only root' do
-    10.times do
-      digits = DocMath.generate_cnpj
-      assert_match(/\A\d{14}\z/, digits)
-      assert DocMath.cnpj_valid?(digits)
-    end
-  end
-
-  test 'generate_cnpj with alphanumeric: true may include letters in the root' do
-    digits = Array.new(30) { DocMath.generate_cnpj(alphanumeric: true) }
+  test 'generate_cnpj defaults to an alphanumeric root' do
+    digits = Array.new(30) { DocMath.generate_cnpj }
 
     assert(digits.any? { |d| d.match?(/[A-Z]/) })
     digits.each { |d| assert DocMath.cnpj_valid?(d) }
+  end
+
+  test 'generate_cnpj with alphanumeric: false produces a numeric-only root' do
+    10.times do
+      digits = DocMath.generate_cnpj(alphanumeric: false)
+      assert_match(/\A\d{14}\z/, digits)
+      assert DocMath.cnpj_valid?(digits)
+    end
   end
 end

@@ -8,11 +8,12 @@ class BrazilianDocumentWrapperTest < ActiveSupport::TestCase
   end
 
   def test_cnpj_generate_method_formatted
-    assert_match(%r{^\d{2}\.\d{3}\.\d{3}/\d{4}\-\d{2}$}, BrazilianDocumentWrapper.generate_cnpj)
+    assert_match(%r{^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}/[0-9A-Z]{4}\-\d{2}$},
+                 BrazilianDocumentWrapper.generate_cnpj)
   end
 
   def test_cnpj_generate_method_stripped
-    assert_match(/^\d{14}$/, BrazilianDocumentWrapper.generate_cnpj(false))
+    assert_match(/^[0-9A-Z]{12}\d{2}$/, BrazilianDocumentWrapper.generate_cnpj(false))
   end
 
   def test_cnpj_generate_method_is_always_a_valid_cnpj
@@ -20,6 +21,12 @@ class BrazilianDocumentWrapperTest < ActiveSupport::TestCase
       cnpj = BrazilianDocumentWrapper.generate_cnpj(false)
       assert cnpj.to_brazilian_document.cnpj?, "expected #{cnpj} to be a valid CNPJ"
     end
+  end
+
+  def test_cnpj_generate_method_defaults_to_alphanumeric
+    cnpjs = Array.new(30) { BrazilianDocumentWrapper.generate_cnpj(false) }
+
+    assert(cnpjs.any? { |cnpj| cnpj.match?(/[A-Z]/) })
   end
 
   def test_cnpj_generate_method_alphanumeric_formatted
@@ -34,9 +41,9 @@ class BrazilianDocumentWrapperTest < ActiveSupport::TestCase
     end
   end
 
-  def test_cnpj_generate_method_alphanumeric_defaults_to_numeric_only
+  def test_cnpj_generate_method_alphanumeric_false_is_numeric_only
     20.times do
-      cnpj = BrazilianDocumentWrapper.generate_cnpj(false)
+      cnpj = BrazilianDocumentWrapper.generate_cnpj(false, alphanumeric: false)
       assert_match(/^\d{14}$/, cnpj)
     end
   end

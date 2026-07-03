@@ -85,7 +85,7 @@ module BrazilianDocumentWrapper
       end
     end
 
-    def generate_cnpj(alphanumeric: false)
+    def generate_cnpj(alphanumeric: true)
       alphabet = alphanumeric ? CNPJ_ALPHABET : NUMERIC_ALPHABET
       loop do
         root = Array.new(CNPJ_ROOT_LENGTH) { alphabet.sample }.join

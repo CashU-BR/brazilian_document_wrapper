@@ -8,6 +8,7 @@ gemspec
 
 group :development do
   gem 'sqlite3'
+  gem 'listen', '~> 3.3'
 end
 
 gem 'simplecov', require: false, group: :test

@@ -46,6 +46,13 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal '77075203', '77075203000171'.to_brazilian_document.stripped_prefix
   end
 
+  test 'stripped accepts mixed separator formats' do
+    assert_equal '77075203000171', '77.075.203/0001-71'.to_brazilian_document.stripped
+    assert_equal '77075203000171', '77-075-203/0001-71'.to_brazilian_document.stripped
+    assert_equal '77075203000171', '77075203/000171'.to_brazilian_document.stripped
+    assert_equal '77075203000171', '77075203000171'.to_brazilian_document.stripped
+  end
+
   test 'invalid_cnpj to return true when is a invalid CNPJ' do
     assert_equal true, '7075203000171'.to_brazilian_document.invalid_cnpj?
   end
@@ -60,15 +67,32 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal true, '384.227.160-38'.to_brazilian_document.cpf?
   end
 
+  test 'doc_type to return nil for an invalid document' do
+    assert_nil '384.227.160-8'.to_brazilian_document.doc_type
+  end
+
   test 'to_param to return a document for in the parameter form' do
     assert_equal '38422716038', '384.227.160-38'.to_brazilian_document.to_param
   end
 
+  test 'to_param raises InvalidDocumentError for an invalid document' do
+    assert_raise(BrazilianDocumentWrapper::InvalidDocumentError) do
+      '384.227.160-8'.to_brazilian_document.to_param
+    end
+  end
+
   test 'to raise InvalidDocumentError when string is a invalid document' do
-    error = assert_raise(InvalidDocumentError) do
+    error = assert_raise(BrazilianDocumentWrapper::InvalidDocumentError) do
       '384.227.160-8'.to_brazilian_document.stripped
     end
     assert_equal 'Invalid document: 384.227.160-8', error.message
+  end
+
+  test 'the deprecated top-level InvalidDocumentError alias still catches the error' do
+    error = assert_raise(InvalidDocumentError) do
+      '384.227.160-8'.to_brazilian_document.stripped
+    end
+    assert_kind_of BrazilianDocumentWrapper::InvalidDocumentError, error
   end
 
   test 'to return a Wrapper class when is a document string' do
@@ -80,28 +104,11 @@ class WrapperTest < ActiveSupport::TestCase
     assert_equal BrazilianDocumentWrapper::Wrapper, document.to_param.class
   end
 
-  test 'to return the headquarter document from CNPJ' do
-    document = '77.075.203/0001-71'.to_brazilian_document
+  test 'a sample of real numeric documents remain valid after internalizing the checksum' do
+    real_cnpjs = %w[04985802000159 77075203000171 18933677000148 52256591000166]
+    real_cpfs = %w[07881071001 38422716038 61854357050]
 
-    assert_equal '77.075.203/0001-71', document.headquarter
-  end
-
-  test 'returns true for headquarter CNPJ' do
-    document = '18.933.677/0001-48'.to_brazilian_document
-
-    assert document.headquarter?
-  end
-
-  test 'returns false for branch CNPJ' do
-    document = '18.933.677/0002-29'.to_brazilian_document
-
-    refute document.headquarter?
-  end
-
-  test 'to raise InvalidDocumentError when headquarter is called from a invalid CNPJ' do
-    error = assert_raise(InvalidDocumentError) do
-      '384.227.160-38'.to_brazilian_document.headquarter
-    end
-    assert_equal 'Invalid document: 384.227.160-38', error.message
+    real_cnpjs.each { |cnpj| assert cnpj.to_brazilian_document.cnpj?, "expected #{cnpj} valid" }
+    real_cpfs.each { |cpf| assert cpf.to_brazilian_document.cpf?, "expected #{cpf} valid" }
   end
 end

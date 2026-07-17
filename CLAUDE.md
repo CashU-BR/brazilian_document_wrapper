@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A Rails plugin gem that adds CPF/CNPJ helpers to strings and ActiveRecord attributes. All CPF/CNPJ validation, digit-verification, formatting, and generation math is implemented in pure Ruby inside the gem — there is no runtime dependency beyond Rails, and CNPJ validation supports both the legacy numeric-only format and the alphanumeric CNPJ introduced by IN RFB 2.229/2024. See `CONTEXT.md` for the CPF/CNPJ domain model (formats, checksum algorithm) and `docs/adr/` for why the gem is built this way — don't duplicate that background here. The gemspec supports Ruby >= 2.7.8 and Rails >= 6.1, < 8.0, and rubocop targets Ruby 2.7 — keep library code compatible with Ruby 2.7 syntax even if your local Ruby is newer.
+A Rails plugin gem that adds CPF/CNPJ helpers to strings and ActiveRecord attributes. All CPF/CNPJ validation, digit-verification, formatting, and generation math is implemented in pure Ruby inside the gem — there is no runtime dependency beyond Rails, and CNPJ validation supports both the legacy numeric-only format and the alphanumeric CNPJ introduced by IN RFB 2.229/2024. See `CONTEXT.md` for the CPF/CNPJ domain model (formats, checksum algorithm) and `docs/adr/` for why the gem is built this way — don't duplicate that background here. The gemspec supports Ruby >= 2.7.8 and Rails >= 6.1, < 9, and rubocop targets Ruby 2.7 — keep library code compatible with Ruby 2.7 syntax even if your local Ruby is newer.
 
 ## Commands
 

@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.2.0
+## 0.2.2
+
+### Changed
+- Widened the Rails constraint from `>= 6.1, < 8.0` to `>= 6.1, < 9` — the gem now
+  supports Rails 8.x. `Gemfile.lock` and the test dummy app's `load_defaults` were
+  bumped to Rails 8.1 accordingly.
+- Added a GitHub Actions CI workflow running the test suite and rubocop.
+
+## 0.2.1
 
 ### Added
 - Support for alphanumeric CNPJ (IN RFB 2.229/2024, in production since 01/07/2026).

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brazilian_document_wrapper (0.2.0)
+    brazilian_document_wrapper (0.2.1)
       rails (>= 6.1, < 8.0)
 
 GEM

@@ -14,6 +14,7 @@ module BrazilianDocumentWrapper
 
   class Wrapper < String
     CNPJ_MASK_CHARS = %r{[.\-/]}.freeze
+    CPF_MASK_CHARS = /[.\-]/.freeze
 
     def standard
       pretty
@@ -100,8 +101,12 @@ module BrazilianDocumentWrapper
       end
     end
 
+    # Only mask separators are stripped, never letters or unexpected symbols -
+    # a stray character must fail validation, not be silently discarded.
+    # Stripping letters here made an alphanumeric CNPJ whose digits happen to
+    # form a valid CPF ambiguous: pretty/stripped would misformat it as a CPF.
     def cpf_digits
-      value.gsub(/\D/, '')
+      value.gsub(CPF_MASK_CHARS, '')
     end
 
     # Only mask separators are stripped, never letters or unexpected symbols -

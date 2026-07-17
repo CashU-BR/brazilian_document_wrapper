@@ -56,5 +56,17 @@ This gem cannot audit apps that consume it, but if you're migrating off
   default. Any factory/fixture that assumes a digits-only result (e.g. `.to_i`,
   numeric-column seeds, `\d{14}` assertions) needs `generate_cnpj(alphanumeric: false)`.
 
+## 0.2.1
+
+### Fixed
+- `Wrapper#cpf_digits` no longer strips letters via a blanket `\D` regex — it now removes
+  only CPF mask separators (`.`, `-`), mirroring `cnpj_chars`. This resolves an ambiguity
+  where an alphanumeric CNPJ whose embedded 11 digits happened to form a valid CPF (e.g.
+  `5C9992M9H04496`, digits `59992904496`) was misdetected as a CPF, causing
+  `pretty`/`stripped` to format it as a CPF instead of a CNPJ (~5 per million CNPJs in a
+  1M-generation fuzz test).
+- CPF strings with a stray non-mask character (e.g. a letter) now correctly fail
+  validation instead of being silently coerced into a valid-looking CPF.
+
 ## 0.1.x
 See git history.

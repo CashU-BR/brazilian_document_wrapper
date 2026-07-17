@@ -69,4 +69,27 @@ class WrapperAlphanumericCnpjTest < ActiveSupport::TestCase
     short_alphanumeric = 'ABC34501DE35'
     refute short_alphanumeric.to_brazilian_document.cnpj?
   end
+
+  # Regression: valid alphanumeric CNPJ whose embedded digits ("59992904496")
+  # happen to form a valid CPF. cpf_digits used to strip letters with /\D/,
+  # so cpf? returned true and pretty/stripped misformatted the document as a
+  # CPF - generate_cnpj could emit CPF-shaped strings at random (flaky specs).
+  AMBIGUOUS_CNPJ = '5C9992M9H04496'
+
+  test 'an alphanumeric CNPJ whose digits form a valid CPF is never a CPF' do
+    wrapper = AMBIGUOUS_CNPJ.to_brazilian_document
+    assert_equal false, wrapper.cpf?
+    assert_equal true, wrapper.cnpj?
+    assert_equal 'CNPJ', wrapper.doc_type
+  end
+
+  test 'pretty and stripped format the ambiguous document as CNPJ' do
+    wrapper = AMBIGUOUS_CNPJ.to_brazilian_document
+    assert_equal '5C.999.2M9/H044-96', wrapper.pretty
+    assert_equal AMBIGUOUS_CNPJ, wrapper.stripped
+  end
+
+  test 'a CPF-shaped string containing letters is not silently coerced into a CPF' do
+    assert_equal false, '9A3.248.661-90'.to_brazilian_document.cpf?
+  end
 end
